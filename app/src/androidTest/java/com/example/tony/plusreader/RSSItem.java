@@ -16,4 +16,12 @@ public class RSSItem {
     public RSSItem(){
     }
 
+    // Parameters for the above constructor
+    public RSSItem(String title, String link, String description, String pubdate, String guid){
+        this._title = title;
+        this._link = link;
+        this._description = description;
+        this._pubdate = pubdate;
+        this._guid = guid;
+    }
 }
