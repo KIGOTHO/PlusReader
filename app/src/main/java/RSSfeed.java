@@ -29,3 +29,30 @@ public class RSSfeed {
         this._items = items;
     }
 
+    /**
+     * The code below collects the RSS data from the given site
+     * */
+    public List<RSSItem> getItems() {
+        return this._items;
+    }
+
+    public String getTitle() {
+        return this._title;
+    }
+
+    public String getDescription() {
+        return this._description;
+    }
+
+    public String getLink() {
+        return this._link;
+    }
+
+    public String getRSSLink() {
+        return this._rss_link;
+    }
+
+    public String getLanguage() {
+        return this._language;
+    }
+}
