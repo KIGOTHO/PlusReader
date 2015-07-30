@@ -16,4 +16,12 @@ public class Website {
 
     }
 
+
+    // These are attributes added to the constructor
+    public Website(String title, String link, String rss_link, String description){
+        this._title = title;
+        this._link = link;
+        this._rss_link = rss_link;
+        this._description = description;
+    }
 }
