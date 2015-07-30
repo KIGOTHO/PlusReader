@@ -101,6 +101,57 @@ public class RSSParser {
                 // successfully fetched rss xml
                 // parse the xml
 
+                try {
+                    Document doc = this.getDomElement(rss_feed_xml);
+                    NodeList nodeList = doc.getElementsByTagName(TAG_CHANNEL);
+                    Element e = (Element) nodeList.item(0);
+
+                    // Getting items array
+                    NodeList items = e.getElementsByTagName(TAG_ITEM);
+
+                    // looping through each item
+                    for (int i = 0; i < items.getLength(); i++) {
+                        Element e1 = (Element) items.item(i);
+
+                        String title = this.getValue(e1, TAG_TITLE);
+                        String link = this.getValue(e1, TAG_LINK);
+                        String description = this.getValue(e1, TAG_DESRIPTION);
+                        String pubdate = this.getValue(e1, TAG_PUB_DATE);
+                        String guid = this.getValue(e1, TAG_GUID);
+
+                        RSSItem rssItem = new RSSItem(title, link, description, pubdate, guid);
+
+                        // adding item to list
+                        itemsList.add(rssItem);
+                    }
+                } catch (Exception e) {
+                    // Check log for errors
+                    e.printStackTrace();
+                }
+            }
+
+            // return item list
+            return itemsList;
+        }
+
+    }
+        /**
+         * Getting RSS feed items <item>
+         *
+         * @param - rss link url of the website
+         * @return - List of RSSItem class objects
+         * */
+        public List<RSSItem> getRSSFeedItems(String rss_url){
+            List<RSSItem> itemsList = new ArrayList<RSSItem>();
+            String rss_feed_xml;
+
+            // get RSS XML from rss url
+            rss_feed_xml = this.getXmlFromUrl(rss_url);
+
+            // check if RSS XML fetched or not
+            if(rss_feed_xml != null){
+                // successfully fetched rss xml
+                // parse the xml
                 try{
                     Document doc = this.getDomElement(rss_feed_xml);
                     NodeList nodeList = doc.getElementsByTagName(TAG_CHANNEL);
