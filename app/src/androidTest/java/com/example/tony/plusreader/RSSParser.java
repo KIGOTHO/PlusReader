@@ -133,6 +133,5 @@ public class RSSParser {
             // return item list
             return itemsList;
         }
-
     }
 }
