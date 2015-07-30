@@ -21,3 +21,11 @@ public class RSSfeed {
         this._rss_link = rss_link;
         this._language = language;
     }
+
+    /**
+     * Creates a platform for the user to input  rss information (feed)
+     * */
+    public void setItems(List<RSSItem> items) {
+        this._items = items;
+    }
+
