@@ -69,6 +69,8 @@ public class RSSParser {
     private static String TAG_PUB_DATE = "pubDate";
     private static String TAG_GUID = "guid";
 
+
+
     // constructor
     public RSSParser() {
 
@@ -185,4 +187,121 @@ public class RSSParser {
             return itemsList;
         }
     }
+
+
+    /**
+     * Getting RSS feed link from HTML source code
+     *
+     * @param ulr is url of the website
+     * @returns url of rss link of website
+     * */
+
+
+    public String getRSSLinkFromURL(String url) {
+        // RSS url
+        String rss_url = null;
+
+        try {
+            // Using JSoup library to parse the html source code
+            org.jsoup.nodes.Document doc = Jsoup.connect(url).get();
+            // finding rss links which are having link[type=application/rss+xml]
+            org.jsoup.select.Elements links = doc
+                    .select("link[type=application/rss+xml]");
+
+            Log.d("No of RSS links found", " " + links.size());
+
+            // check if urls found or not
+            if (links.size() > 0) {
+                rss_url = links.get(0).attr("href").toString();
+            } else {
+                // finding rss links which are having link[type=application/rss+xml]
+                org.jsoup.select.Elements links1 = doc
+                        .select("link[type=application/atom+xml]");
+                if(links1.size() > 0){
+                    rss_url = links1.get(0).attr("href").toString();
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // returing RSS url
+        return rss_url;
+    }
+
+
+    /**
+     * Method to get xml content from url HTTP Get request
+     * */
+    public String getXmlFromUrl(String url) {
+        String xml = null;
+
+        try {
+            // request method is GET
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url);
+
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            xml = EntityUtils.toString(httpEntity);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // return XML
+        return xml;
+    }
+    /**
+     * Getting XML DOM element
+     *
+     * @param XML string
+     * */
+    public Document getDomElement(String xml) {
+        Document doc = null;
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        try {
+
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            InputSource is = new InputSource();
+            is.setCharacterStream(new StringReader(xml));
+            doc = (Document) db.parse(is);
+
+        } catch (ParserConfigurationException e) {
+            Log.e("Error: ", e.getMessage());
+            return null;
+        } catch (SAXException e) {
+            Log.e("Error: ", e.getMessage());
+            return null;
+        } catch (IOException e) {
+            Log.e("Error: ", e.getMessage());
+            return null;
+        }
+
+        return doc;
+    }
+
+    /**
+     * Getting node value
+     *
+     * @param Element node
+     * @param key  string
+     **/
+    public String getValue(Element item, String str) {
+        NodeList n = item.getElementsByTagName(str);
+        return this.getElementValue(n.item(0));
+    }
 }
+}
+
+
+
+
+
+
+
