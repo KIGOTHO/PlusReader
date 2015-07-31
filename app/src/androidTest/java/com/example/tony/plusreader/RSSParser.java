@@ -54,9 +54,9 @@ import java.util.regex.Pattern;
 import android.util.Log;
 
 /**
- * Parses the RSS xml to return RSSFeed object(Gets html -> parses html to get RSS url ->
+ * Parses the RSS xml to return com.example.tony.plusreader.RSSFeed object(Gets html -> parses html to get RSS url ->
  * After getting rss url will get rss xml and parse the xml. ->
- * Once rss xml parsing is done will return RSSFeed object of the rss xml)
+ * Once rss xml parsing is done will return com.example.tony.plusreader.RSSFeed object of the rss xml)
  */
 public class RSSParser {
     // RSS XML document CHANNEL tags
@@ -80,7 +80,7 @@ public class RSSParser {
      * Gets the RSS feed from url
      *
      * @param url - is url of the website
-     * @return RSSFeed class object
+     * @return com.example.tony.plusreader.RSSFeed class object
      */
 
     public RSSFeed getRSSFeed(String url) {
@@ -135,14 +135,16 @@ public class RSSParser {
             // return item list
             return itemsList;
         }
-
+ return RSSFeed;
     }
+
         /**
          * Getting RSS feed items <item>
          *
          * @param - rss link url of the website
          * @return - List of RSSItem class objects
          * */
+
         public List<RSSItem> getRSSFeedItems(String rss_url){
             List<RSSItem> itemsList = new ArrayList<RSSItem>();
             String rss_feed_xml;

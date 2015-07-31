@@ -26,7 +26,7 @@ public class RSSItem {
     }
 
     /**
-     * SET methods that handles the users input from RSSFeed class
+     * SET methods that handles the users input from com.example.tony.plusreader.RSSFeed class
      * */
     public void setTitle(String title){
         this._title = title;

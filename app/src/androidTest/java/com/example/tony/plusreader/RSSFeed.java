@@ -1,3 +1,5 @@
+package com.example.tony.plusreader;
+
 import java.util.List;
 /**
  * This class handle rss xml
@@ -10,7 +12,7 @@ public class RSSFeed {
     String _rss_link;
     String _language;
     List<RSSItem> _items;
-}
+
 
     // Assigns the descriptions of the RSS feeds
     public RSSFeed(String title, String description, String link,
