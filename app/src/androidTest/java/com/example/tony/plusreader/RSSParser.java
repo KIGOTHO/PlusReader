@@ -1,10 +1,13 @@
+
 package com.example.tony.plusreader;
+
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.tony.plusreader.RSSItem;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +26,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import com.example.tony.plusreader.RSSFeed;
 
 
 import android.content.ContentProviderOperation;
@@ -35,20 +39,6 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 
-
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 import android.util.Log;
@@ -68,6 +58,7 @@ public class RSSParser {
     private static String TAG_ITEM = "item";
     private static String TAG_PUB_DATE = "pubDate";
     private static String TAG_GUID = "guid";
+    List  itemsList;
 
 
 
@@ -83,7 +74,7 @@ public class RSSParser {
      * @return com.example.tony.plusreader.RSSFeed class object
      */
 
-    public RSSFeed getRSSFeed(String url) {
+    public List getRSSFeed(String url) {
 //        resets the RSS feed when changing website
         RSSFeed rssFeed = null;
         String rss_feed_xml = null;
@@ -132,10 +123,10 @@ public class RSSParser {
                 }
             }
 
-            // return item list
-            return itemsList;
+
         }
- return RSSFeed;
+        // return item list
+        return itemsList;
     }
 
         /**
@@ -194,7 +185,7 @@ public class RSSParser {
     /**
      * Getting RSS feed link from HTML source code
      *
-     * @param ulr is url of the website
+    // * @param ulr is url of the website
      * @returns url of rss link of website
      * */
 
@@ -261,7 +252,7 @@ public class RSSParser {
     /**
      * Getting XML DOM element
      *
-     * @param XML string
+     //* @param XML string
      * */
     public Document getDomElement(String xml) {
         Document doc = null;
@@ -291,15 +282,15 @@ public class RSSParser {
     /**
      * Getting node value
      *
-     * @param Element node
-     * @param key  string
+   //  * @param Element node
+   //  * @param key  string
      **/
     public String getValue(Element item, String str) {
         NodeList n = item.getElementsByTagName(str);
-        return this.getElementValue(n.item(0));
+        return this.getValue(n.item(0));
     }
 }
-}
+
 
 
 
