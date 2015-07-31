@@ -2,16 +2,7 @@
 package com.example.tony.plusreader;
 
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-import com.example.tony.plusreader.RSSItem;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,26 +13,19 @@ import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import com.example.tony.plusreader.RSSFeed;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.net.Uri;
-import android.text.Html;
-import android.text.TextUtils;
-import android.util.Log;
-
-
-
-import android.util.Log;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Parses the RSS xml to return com.example.tony.plusreader.RSSFeed object(Gets html -> parses html to get RSS url ->
@@ -179,7 +163,7 @@ public class RSSParser {
             // return item list
             return itemsList;
         }
-    }
+
 
 
     /**
@@ -287,8 +271,10 @@ public class RSSParser {
      **/
     public String getValue(Element item, String str) {
         NodeList n = item.getElementsByTagName(str);
-        return this.getValue(n.item(0));
+        return this.getValue((Element) n.item(0),str);
     }
+
+
 }
 
 
